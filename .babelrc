@@ -1,0 +1,9 @@
+//babel-core que incluye todas las herramientas para transformar nuesto JS a versiones antiguas
+//babel-loader se encarga de trabajar con webpack
+//babel-presets-env y babel-preset-react que nos ayudaran a entender y transformar nuestro código JS y React
+{
+    "presets":[
+        "@babel/preset-env", //Nos ayuda a trabajar con ES5 y 6
+        "@babel/preset-react" //Nos ayuda a trabajar con JSX y React
+    ]
+}
