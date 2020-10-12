@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 // Creamos un nuevo modulo que vamos a exportar con esta configuracion
 // Vamos a configurar cada unos de los elementos que necesitamos
@@ -41,6 +42,16 @@ module.exports = {
                     }
                 ]
             },
+            {
+                test: /\.(s*)css$/,
+                use:[
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    'css-loader',
+                    'sass-loader'
+                ]
+            }
         ]
     },
     // Se añaden los plugins que necesitamos
@@ -48,7 +59,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             //Donde esta ubicado el template que tenemos
             template: './public/index.html',
+            //Como se llamara el arhcivo final
             filename: './index.html'
+        }),
+        new MiniCssExtractPlugin({
+            filename:'assets/[name].css'
         })
     ]
 }
