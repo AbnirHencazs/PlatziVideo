@@ -13,7 +13,6 @@ const API = 'http://localhost:3000/initialState'
 const App = () => {
     const initialState = useInitialState(API)
 
-    console.log(videos)
     return(
         <div className="app">
             <Header />
