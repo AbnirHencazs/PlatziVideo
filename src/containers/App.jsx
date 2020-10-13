@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Search from '../components/Search'
 import Categories from '../components/Categories'
@@ -7,36 +7,48 @@ import CarouselItem from '../components/CarouselItem'
 import Footer from '../components/Footer'
 import '../assets/styles/App.scss'
 
-const App = () => (
-    <div className="app">
-        <Header />
-        <Search />
-        <Categories
-            title="Mi lista">
-            <Carousel>
-                <CarouselItem/>
-                <CarouselItem/>
-                <CarouselItem/>
-            </Carousel>
-        </Categories>
-        <Categories
-            title="Tendencias">
-            <Carousel>
-                <CarouselItem/>
-                <CarouselItem/>
-                <CarouselItem/>
-            </Carousel>
-        </Categories>
-        <Categories
-            title="Originales de Platzi Video">
-            <Carousel>
-                <CarouselItem/>
-                <CarouselItem/>
-                <CarouselItem/>
-            </Carousel>
-        </Categories>
-        <Footer />
-    </div>
-)
+const App = () => {
+    const [ videos, setVideos ] = useState([])
+
+    useEffect( () => {
+        fetch('http://localhost:3000/initalState')
+            .then( response => response.json() )
+            .then( data => setVideos(data) )
+    }, [])
+    //el segundo argumento es una propiedad que puede poner a escuchar a useEffect del agun evento para volver  ejecutarse,
+    //Como no queremos eso ahora, ponemos un arreglo vacio puesto que si no le pasamos nada, se creara un bucle infinito.
+    console.log(videos)
+    return(
+        <div className="app">
+            <Header />
+            <Search />
+            <Categories
+                title="Mi lista">
+                <Carousel>
+                    <CarouselItem/>
+                    <CarouselItem/>
+                    <CarouselItem/>
+                </Carousel>
+            </Categories>
+            <Categories
+                title="Tendencias">
+                <Carousel>
+                    <CarouselItem/>
+                    <CarouselItem/>
+                    <CarouselItem/>
+                </Carousel>
+            </Categories>
+            <Categories
+                title="Originales de Platzi Video">
+                <Carousel>
+                    <CarouselItem/>
+                    <CarouselItem/>
+                    <CarouselItem/>
+                </Carousel>
+            </Categories>
+            <Footer />
+        </div>
+    );
+}
 
 export default App
