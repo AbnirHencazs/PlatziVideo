@@ -8,7 +8,7 @@ import Footer from '../components/Footer'
 import useInitialState from '../hooks/useInitialState'
 import '../assets/styles/App.scss'
 
-const API = 'http://localhost:3000/initialState'
+const API = 'http://localhost:3001/initialState'
 
 const App = () => {
     const initialState = useInitialState(API)
@@ -31,7 +31,6 @@ const App = () => {
                 <Carousel>
                     {
                         initialState.trends?.map( item => {
-                            
                             return <CarouselItem key={item.id} {...item}/>
                         })
                     }
@@ -40,7 +39,11 @@ const App = () => {
             <Categories
                 title="Originales de Platzi Video">
                 <Carousel>
-                    <CarouselItem/>
+                    {
+                        initialState.originals?.map( item => {
+                            return <CarouselItem key={item.id} {...item}/>
+                        })
+                    }
                 </Carousel>
             </Categories>
             <Footer />
