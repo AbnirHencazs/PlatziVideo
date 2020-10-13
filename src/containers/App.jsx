@@ -5,25 +5,21 @@ import Categories from '../components/Categories'
 import Carousel from '../components/Carousel'
 import CarouselItem from '../components/CarouselItem'
 import Footer from '../components/Footer'
+import useInitialState from '../hooks/useInitialState'
 import '../assets/styles/App.scss'
 
-const App = () => {
-    const [ videos, setVideos ] = useState({ 'mylist': [], 'trends': [], 'originals': [] });
+const API = 'http://localhost:3000/initialState'
 
-    useEffect( () => {
-        fetch('http://localhost:3000/initialState')
-            .then( response =>  response.json()  )
-            .then( data =>  setVideos(data) )
-    }, [])
-    //el segundo argumento es una propiedad que puede poner a escuchar a useEffect del agun evento para volver  ejecutarse,
-    //Como no queremos eso ahora, ponemos un arreglo vacio puesto que si no le pasamos nada, se creara un bucle infinito.
+const App = () => {
+    const initialState = useInitialState(API)
+
     console.log(videos)
     return(
         <div className="app">
             <Header />
             <Search />
             {
-                videos.mylist.length > 0 &&
+                initialState.mylist.length > 0 &&
                 <Categories
                     title="Mi lista">
                     <Carousel>
@@ -35,7 +31,7 @@ const App = () => {
                 title="Tendencias">
                 <Carousel>
                     {
-                        videos.trends?.map( item => {
+                        initialState.trends?.map( item => {
                             
                             return <CarouselItem key={item.id} {...item}/>
                         })
